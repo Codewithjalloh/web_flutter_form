@@ -46,6 +46,7 @@ class WelcomeScreen extends StatelessWidget {
           children: [
             Text("Welcome! ", style: Theme.of(context).textTheme.headline2),
             Text("Waht would you like to do today Mr"),
+            Text("How are you today"),
           ],
         )
       ),
