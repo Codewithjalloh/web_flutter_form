@@ -49,12 +49,22 @@ class WelcomeScreen extends StatelessWidget {
 }
 
 class SignUpForm extends StatefulWidget {
-
   @override
   _SignUpFormState createState() => _SignUpFormState();
 }
 
 class _SignUpFormState extends State<SignUpForm> {
+
+  final _firstNameTextController = TextEditingController();
+  final _lastNameTextController = TextEditingController();
+  final _usernameTextController = TextEditingController();
+
+  double _formProgress = 0;
+
+  void _updateFormProgress() {
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container();
