@@ -47,6 +47,11 @@ class WelcomeScreen extends StatelessWidget {
             Text("Welcome! ", style: Theme.of(context).textTheme.headline2),
             Text("Waht would you like to do today Mr"),
             Text("How are you today"),
+            FloatingActionButton(
+                tooltip: "Add",
+                child: Icon(Icons.add),
+                onPressed: null)
+
           ],
         )
       ),
