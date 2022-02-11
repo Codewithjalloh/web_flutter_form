@@ -147,9 +147,54 @@ class AnimatedProgressIndicator extends StatefulWidget {
   _AnimatedProgressIndicatorState createState() => _AnimatedProgressIndicatorState();
 }
 
-class _AnimatedProgressIndicatorState extends State<AnimatedProgressIndicator> {
+class _AnimatedProgressIndicatorState extends State<AnimatedProgressIndicator> with SingleTickerProviderStateMixin {
+
+  late AnimationController _controller;
+  late Animation<Color?> _colorAnimation;
+  late Animation<double> _curveAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+        duration: const Duration(milliseconds: 1200),
+        vsync: this);
+
+    final colorTween = TweenSequence([
+      TweenSequenceItem(
+        tween: ColorTween(begin: Colors.red, end: Colors.orange),
+        weight: 1,
+      ),
+      TweenSequenceItem(
+        tween: ColorTween(begin: Colors.orange, end: Colors.yellow),
+        weight: 1,
+      ),
+      TweenSequenceItem(
+        tween: ColorTween(begin: Colors.yellow, end: Colors.green),
+        weight: 1,
+      ),
+
+    ]);
+
+    _colorAnimation = _controller.drive(colorTween);
+    _curveAnimation = _controller.drive(CurveTween(curve: Curves.easeIn));
+  }
+
+  @override
+  void didUpdateWidget(covariant AnimatedProgressIndicator oldWidget) {
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+    _controller.animateTo(widget.value);
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return AnimatedBuilder(animation: _controller, 
+        builder: (context, child) => LinearProgressIndicator(
+          value: _curveAnimation.value,
+          valueColor: _colorAnimation,
+          backgroundColor: _colorAnimation.value?.withOpacity(0.4),
+        ));
   }
 }
